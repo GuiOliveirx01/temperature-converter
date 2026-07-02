@@ -1,3 +1,12 @@
+units = {
+    "1": ("°C", "°F"),
+    "2": ("°C", "K"),
+    "3": ("°F", "°C"),
+    "4": ("°F", "K"),
+    "5": ("K", "°C"),
+    "6": ("K", "°F")
+}
+
 restart = "S"
 
 while restart == "S":
@@ -10,7 +19,7 @@ while restart == "S":
 
     option = input("\nEscolha uma opção: ")
 
-    if option not in ("1", "2", "3", "4", "5", "6"):
+    if option not in units:
         print("\nOpção inválida.")
         continue
     else:
@@ -22,31 +31,20 @@ while restart == "S":
             except ValueError:
                 print("\nValor inválido.")
 
-    if option == "1":
-        result = value * 9 / 5 + 32
-    elif option == "2":
-        result = value + 273.15
-    elif option == "3":
-        result = (value - 32) * 5 / 9
-    elif option == "4":
-        result = (value - 32) * 5 / 9 + 273.15
-    elif option == "5":
-        result = value - 273.15
-    elif option == "6":
-        result = (value - 273.15) * 9 / 5 + 32
+    source, target = units[option]
 
-    if option == "1":
-        print(f"\n{round(value, 2):g} °C equivalem a {round(result, 2):g} °F")
-    elif option == "2":
-        print(f"\n{round(value, 2):g} °C equivalem a {round(result, 2):g} K")
-    elif option == "3":
-        print(f"\n{round(value, 2):g} °F equivalem a {round(result, 2):g} °C")
-    elif option == "4":
-        print(f"\n{round(value, 2):g} °F equivalem a {round(result, 2):g} K")
-    elif option == "5":
-        print(f"\n{round(value, 2):g} K equivalem a {round(result, 2):g} °C")
-    elif option == "6":
-        print(f"\n{round(value, 2):g} K equivalem a {round(result, 2):g} °F")
+    formulas = {
+        "1": value * 9 / 5 + 32,
+        "2": value + 273.15,
+        "3": (value - 32) * 5 / 9,
+        "4": (value - 32) * 5 / 9 + 273.15,
+        "5": value - 273.15,
+        "6": (value - 273.15) * 9 / 5 + 32
+    }
+
+    result = formulas[option]
+
+    print(f"\n{round(value, 2):g}{source} equivalem a {round(result, 2):g}{target}")
 
     restart = input("\nDeseja realizar outra conversão? (S/N) ").title()
 
